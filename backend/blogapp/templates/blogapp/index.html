@@ -1,0 +1,28 @@
+{% extends 'blogapp/layout.html' %}
+  {% block body %}
+    <article style="min-height: 100vh">
+        <div class='article_categories'>
+            {% if categories %}
+            <ul>
+                {% for categorie in categories %}
+                <li> <a href="">{{ categorie.categorie }}</a> </li>
+            {% endfor %}
+            {% else %}
+                <p> No categories are available</p>
+            {% endif %}
+            </ul>
+        </div>
+        <div class='articles'>
+            {% if articles %}
+                <ul>
+                {% for article in articles %}
+                    <li><a href="{% url 'blogapp:article' article.id%}"> {{article.article_header}} </a> </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p> No Articles are available </p>
+            {% endif %}
+        </div>
+            </article>
+
+{% endblock %}

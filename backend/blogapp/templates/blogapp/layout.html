@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   {% load static %}
+
+    <link rel="stylesheet" href="{% static 'blogapp/style.css' %}">
+    <title>Blog</title>
+</head>
+<body>
+
+    <header>
+
+
+        <nav>
+            <ul class="nav_links">
+                <li><a href='{% url "blogapp:index" %}'>Home</a></li>
+                <li><a href='{% url "blogapp:about" %} '>About</a></li>
+                <li><a href='{% url "blogapp:contact" %} '>Contact</a></li>
+                <li><a href='{% url "blogapp:faq" %} '>FAQ</a></li>
+            </ul>
+
+        </nav>
+        <input id='search' type="text" placeholder="Search">
+
+    </header>
+
+    {% block body %}
+    {% endblock %}
+
+
+    <footer class='footer'>
+        <div class="footer_menu">
+            <ul>
+                <li> <a href="">Link 1</a> </li>
+                <li> <a href="">Link 2</a> </li>
+                <li> <a href="">Link 3</a> </li>
+            </ul>
+            <ul>
+                <li> <a href="">Link 1</a> </li>
+                <li> <a href="">Link 2</a> </li>
+                <li> <a href="">Link 3</a> </li>
+            </ul>
+            <ul>
+                <li> <a href="">Link 1</a> </li>
+                <li> <a href="">Link 2</a> </li>
+                <li> <a href="">Link 3</a> </li>
+            </ul>
+        </div>
+        <span class="copywrite">Copywrite Pavel Lexmaul 2023 &copy</span>
+    </footer>
+</body>
+</html>
