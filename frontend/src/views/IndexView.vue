@@ -25,8 +25,8 @@ onMounted(async () => {
         const fetchedArticles = await getPosts();
         const shortArticleList = fetchedArticles.slice(0,24);
         articles.value = shortArticleList; // Assign the fetched articles to the ref
-        console.log(articles.value)
-    } catch (error) {
+    } 
+    catch (error) {
         console.error('Error in onMounted:', error);
     }
 });

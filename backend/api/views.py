@@ -6,7 +6,7 @@ from .serializer import ArticleSerializer, UserSerializer, PostSerializer
 from rest_framework import generics
 
 
-class ArticleView(generics.RetrieveAPIView):
+class ArticleView(generics.ListAPIView):
 	queryset = Article.objects.all()
 
 	def get(self, request, *args, **kwargs):
@@ -23,8 +23,7 @@ class UserView(generics.RetrieveAPIView):
 		return Response(serializer.data)
 
 
-# @api_view(['GET'])
-# def getData(request):
-# 	articles = Article.objects.all()
-# 	serializer = ArticleSerializer(articles, many=True)
-# 	return Response(serializer.data)
+class CreateArticle(generics.CreateAPIView):
+	queryset = Article.objects.all()
+	serializer_class = ArticleSerializer
+
