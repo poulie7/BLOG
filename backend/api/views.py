@@ -6,13 +6,14 @@ from .serializer import ArticleSerializer, UserSerializer, PostSerializer
 from rest_framework import generics
 
 
-class ArticleView(generics.ListAPIView):
-	queryset = Article.objects.all()
+#Authentication Views
 
-	def get(self, request, *args, **kwargs):
-		queryset = self.get_queryset()
-		serializer = ArticleSerializer(queryset, many=True)
-		return Response(serializer.data)
+#SignUp
+
+#Login
+
+
+#Logout
 
 class UserView(generics.RetrieveAPIView):
 	queryset = User.objects.all()
@@ -23,7 +24,28 @@ class UserView(generics.RetrieveAPIView):
 		return Response(serializer.data)
 
 
+#CRUD
+
+#Create
 class CreateArticle(generics.CreateAPIView):
+	# queryset = Article.objects.all()
+	serializer_class = ArticleSerializer
+
+#Read
+class ArticleView(generics.ListAPIView):
+	queryset = Article.objects.all()
+
+	def get(self, request, *args, **kwargs):
+		queryset = self.get_queryset()
+		serializer = ArticleSerializer(queryset, many=True)
+		return Response(serializer.data)
+#Update
+class UpdateArticle(generics.UpdateAPIView):
 	queryset = Article.objects.all()
 	serializer_class = ArticleSerializer
+
+
+#Delete
+class DeleteArticle(generics.DestroyAPIView):
+	pass
 

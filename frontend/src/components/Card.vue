@@ -20,6 +20,8 @@ const {article} = defineProps(['article'])
 </template>
 
 <style scoped>
+
+
 .cards-content {
     width: 100%;
     height: 100%;

@@ -14,16 +14,10 @@ import { RouterView } from 'vue-router'
     <Footer/> 
 </template>
 
-<style>
+<style scoped>
 
 .container { 
   min-height: 100vh;
 }
 
-.card-container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-top: 5em;
-}
 </style>

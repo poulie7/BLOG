@@ -15,3 +15,15 @@
         </p>
     </main>
 </template>
+
+<style scoped>
+
+
+main { 
+    text-align: center;
+}
+p {
+    text-align: justify;
+    margin: 3em;
+}
+</style>

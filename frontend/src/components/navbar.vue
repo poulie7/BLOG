@@ -1,35 +1,43 @@
-<script>
+<script setup>
     import {RouterLink} from 'vue-router'
+    import {ref} from 'vue'
+    import settings from '../components/settings.vue'
+   
+ 
 </script>
 
 <template>   
    <header>
-
-
         <nav>
-            <ul class="nav_links">
-                <li><RouterLink active-class="active" to='/'>Home</RouterLink></li>
-                <li><RouterLink active-class="active" to='/about'>About</RouterLink></li>
+            <ul class="navigation">
+                <div class="page_navigation">
+                    <li><RouterLink active-class="active" to='/'>Home</RouterLink></li>
+                    <li><RouterLink active-class="active" to='/articles'>Articles</RouterLink></li>
+                    <li><RouterLink active-class="active" to='/about'>About</RouterLink></li>
+                    <li><RouterLink active-class="active" to='/create'>Create post</RouterLink></li>
+                </div>
+                <div class="user_navigation">
+                    <li><RouterLink active-class="active" to='/signup'>Sign Up</RouterLink></li>
+                    <li><RouterLink active-class="active" to='/login'>Login</RouterLink></li>
+                    <li><RouterLink active-class="active" to='/logout'>Logout</RouterLink></li>
+                </div>
             </ul>
-
         </nav>
-        <input id='search' type="text" placeholder="Search">
     </header>
+      
+      <settings/>
 </template>
 
 <style scoped>
+
 .active {
     font-weight: 900;
-
 }
+
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: black;   
     padding: 1em;
 }
-
 
 a {
     text-decoration: none;
@@ -40,27 +48,27 @@ a:hover {
     color: rgb(201, 185, 185);
 
 }
-#logo {
-    height: 50px;
-}
 
-.nav_links li {
+.navigation li {
     list-style-type: none;
     padding: 1em;
-
 }
 
-.nav_links {
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page_navigation {
     display: flex;
 }
 
-#search {
-
-    padding: 6px;
-    border: none;
-    margin-top: 8px;
-    margin-right: 16px;
-    font-size: 17px;
-    border-radius: 50px;
+.user_navigation { 
+    display: flex;
 }
+
+
+
+
+
 </style>
