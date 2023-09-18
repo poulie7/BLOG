@@ -2,13 +2,22 @@ import { createRouter, createWebHistory } from "vue-router";
 import IndexView from '../views/IndexView.vue'
 import AboutView from '../views/AboutView.vue'
 import ArticleView from '../views/Article.vue'
-
+import LoginView from '../views/LoginView.vue'
+import LogoutView from '../views/LogoutView.vue'
+import SignUpView from '../views/SignUpView.vue'
+import HomeView from '../views/HomeView.vue'
+import CreateView from '../views/CreateView.vue'
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
-            name: 'index',
+            name: 'home',
+            component: HomeView
+        },
+        {
+            path: '/articles',
+            name: 'articles',
             component: IndexView
         },
         {
@@ -17,10 +26,31 @@ const router = createRouter({
             component:  AboutView
         },
         {
+            path: '/create',
+            name: 'create',
+            component: CreateView
+        },
+        {
             path: '/article/:id',
             name: 'article',
             component: ArticleView
-        }
+        },
+        { 
+            path: '/login',
+            name: 'login',
+            component: LoginView
+        },
+        { 
+            path: '/logout',
+            name: 'logout',
+            component: LogoutView
+        },
+        { 
+            path: '/signup',
+            name: 'signup',
+            component: SignUpView
+        },
+        
     ]
 })
 

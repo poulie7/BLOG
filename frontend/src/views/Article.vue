@@ -2,6 +2,10 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
+import Editor from '@tinymce/tinymce-vue'
+import settings from '../components/settings.vue'
+import editForm from '../components/editform.vue'
+import {defineProps} from 'vue'
 
 const article = ref([]); // Initialize as null since we're looking for a single article
 const articles = ref([]);
@@ -40,20 +44,28 @@ onMounted(async () => {
         console.error('Error in onMounted:', error);
     }
 });
-
 </script>
 
 <template>
+    
     <main>
-        <h1>{{ article.article_header }}</h1>
+        <settings/>
+        <div v-if="article">
+            <h1>{{ article.article_header }}</h1>
         <div class="text">
             <p>{{article.article}}</p>
         </div>
+        </div>
+        <div v-else>
+            <h1>No article found.</h1>
+        </div>
         
-    </main>
+        <editForm/>
+        </main>
 </template>
 
 <style scoped>
+
 h1{
     text-align: center;
     margin: 2em;
@@ -67,3 +79,10 @@ h1{
     padding: 8px;
 }
 </style>
+
+
+
+
+
+
+

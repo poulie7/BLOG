@@ -1,9 +1,8 @@
 <script setup>
 import Card from '../components/Card.vue'
+import axios from 'axios'
 import {ref, onMounted} from 'vue'
-import axios from 'axios';
-import { useInfiniteScroll } from '@vueuse/core'
-import categoriesView from '../components/categoriesView.vue'
+import createForm from '../components/createForm.vue'
 
 
 //  Fetching data from database
@@ -29,31 +28,42 @@ onMounted(async () => {
     } 
     catch (error) {
         console.error('Error in onMounted:', error);
-    }
+    }   
 });
+
 
 </script>
 
 <template>
-            <categoriesView/>
-
-    <div class="card-container" id="cards-container"> 
-      <Card v-for="article in articles" :key="article.id" :article="article"/>
-    </div>
+    <main>
+        <h1>Welcome to our Blog</h1>
+        <div class="content">
+            <p>Here are the latest post. All articles are available 
+            under articles card.</p>
+        </div>
+       
+        </main>
 </template>
 
 <style scoped>
-.card-container{
-  display: flex;
-  justify-content: space-evenly;
- flex-wrap: wrap;
 
+main { 
+    text-align: center;
 }
-@media screen and (max-width: 1200px) {
- .card-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+
+h1{
+    text-align: center;
+    margin: 2em;
+    text-transform: uppercase;
 }
+.text { 
+    margin: 1em;
+    text-indent: 50px;
+    text-align: justify;
+    border: 1px solid gray;
+    padding: 8px;
+}
+
+
+
 </style>
