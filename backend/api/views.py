@@ -1,5 +1,5 @@
 from blogapp.models import Article
-from .serializer import ArticleSerializer, UserSerializer
+from .serializer import ArticleSerializer, UserSerializer, LoginSerializer
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.authentication import SessionAuthentication, BaseAuthentication
@@ -7,32 +7,40 @@ from rest_framework import generics, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login
+from rest_framework import status
 
 
 # Authentication Views
 
 # Register
-class RegisterUser(generics.CreateAPIView):
-	queryset = User.objects.all()
-	serializer_class = UserSerializer
+class RegisterUser(APIView):
+	def post(self, request):
+		serializer = UserSerializer(data=request.data)
+		serializer.is_valid(raise_exception=True)
+		serializer.save()
+		return Response(serializer.data)
 
 
 # Login
 
+# views.py
+
+
 class LoginUser(APIView):
-    authentication_classes = [SessionAuthentication]
-    def post(self, request):
-        content = {
-            'username': str(request.user),  # `django.contrib.auth.User` instance.
-            'password': str(request.user),  # None
-        }
+	def post(self, request):
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(request, username=username, password=password)
+		if user is not None:
+			login(request, user)
 
 
 
 # Logout
 class LogoutUser(APIView):
-	pass
-
+	def post(self, request):
+		response = Response()
+		response.delete_cookie('jwt')
 
 
 # class UserView(generics.RetrieveAPIView):
@@ -50,7 +58,7 @@ class LogoutUser(APIView):
 class CreateArticle(generics.CreateAPIView):
 	queryset = Article.objects.all()
 	serializer_class = ArticleSerializer
-	# permission_classes = [IsAuthenticated]
+# permission_classes = [IsAuthenticated]
 
 
 # Read

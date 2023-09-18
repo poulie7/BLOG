@@ -50,11 +50,16 @@ onMounted(async () => {
     
     <main>
         <settings/>
-     
-        <h1>{{ article.article_header }}</h1>
+        <div v-if="article">
+            <h1>{{ article.article_header }}</h1>
         <div class="text">
             <p>{{article.article}}</p>
         </div>
+        </div>
+        <div v-else>
+            <h1>No article found.</h1>
+        </div>
+        
         <editForm/>
         </main>
 </template>

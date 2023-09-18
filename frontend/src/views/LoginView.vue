@@ -3,8 +3,8 @@ import axios from 'axios'
 import {ref, onMounted} from 'vue'
 
 
-const username = ref("poulie");
-const password = ref("1234");
+const username = ref("");
+const password = ref("");
 
 
 function login() { 

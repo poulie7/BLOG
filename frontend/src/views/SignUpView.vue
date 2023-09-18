@@ -2,10 +2,10 @@
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
 
-const firstName = ref("Pavel");
-const lastName = ref("Lexmaul");
-const username = ref("poulie");
-const password = ref("1234");
+const firstName = ref("");
+const lastName = ref("");
+const username = ref("");
+const password = ref("");
 
 
 function register() { 
