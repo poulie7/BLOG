@@ -3,7 +3,9 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import Editor from '@tinymce/tinymce-vue'
-
+import settings from '../components/settings.vue'
+import editForm from '../components/editform.vue'
+import {defineProps} from 'vue'
 
 const article = ref([]); // Initialize as null since we're looking for a single article
 const articles = ref([]);
@@ -45,11 +47,15 @@ onMounted(async () => {
 </script>
 
 <template>
+    
     <main>
+        <settings/>
+     
         <h1>{{ article.article_header }}</h1>
         <div class="text">
             <p>{{article.article}}</p>
         </div>
+        <editForm/>
         </main>
 </template>
 

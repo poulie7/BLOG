@@ -1,5 +1,19 @@
-<script>
+<script setup>
+import axios from 'axios'
+import {ref, onMounted} from 'vue'
 
+
+const username = ref("poulie");
+const password = ref("1234");
+
+
+function login() { 
+    axios.post('http://127.0.0.1:8000/api/login/', { 
+        username: username.value,
+        password: password.value,
+  
+    })
+}
 </script>
 
 <template>
@@ -10,16 +24,17 @@
         
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" v-model="username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" v-model="password" required>
             </div>
-            <div class="form-group">
-                <button type="submit">Login</button>
-            </div>
+        
         </form>
+             <div class="form-group">
+                <button type="submit" @click="login">Login</button>
+            </div>
     </div>
         
     </main>

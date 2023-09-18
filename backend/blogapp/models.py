@@ -65,6 +65,6 @@ class Article_categories(models.Model):
 
 
 class Article(models.Model):
-	article_header = models.CharField('Header', max_length=200)
-	article = models.TextField('Article')
+	article_header = models.CharField('Header', max_length=200, default="")
+	article = models.TextField('Article', default="")
 	article_categorie = models.ForeignKey(Article_categories, on_delete=models.CASCADE, default='1')

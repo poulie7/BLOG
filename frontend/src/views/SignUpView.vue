@@ -1,4 +1,22 @@
-<script>
+<script setup>
+import axios from 'axios'
+import {ref, onMounted} from 'vue'
+
+const firstName = ref("Pavel");
+const lastName = ref("Lexmaul");
+const username = ref("poulie");
+const password = ref("1234");
+
+
+function register() { 
+    axios.post('http://127.0.0.1:8000/api/register/', { 
+        first_name: firstName.value,
+        last_name: lastName.value,
+        username: username.value,
+        password: password.value,
+  
+    })
+}
 
 </script>
 
@@ -9,24 +27,25 @@
         <form>
             <div class="form-group">
                 <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" name="first-name" required>
+                <input type="text" id="first-name" name="first-name" v-model="firstName" required>
             </div>
             <div class="form-group">
                 <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" name="last-name" required>
+                <input type="text" id="last-name" name="last-name" v-model="lastName" required>
             </div>
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" v-model="username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password1" name="password1" v-model="password" required>
             </div>
-            <div class="form-group">
-                <button type="submit">Sign Up</button>
-            </div>
+          
         </form>
+        <div class="form-group">
+                <button type="submit" @click="register">Sign Up</button>
+            </div>
     </div>
         
     </main>

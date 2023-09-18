@@ -2,26 +2,23 @@
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
 import Editor from '@tinymce/tinymce-vue'
-const articleHeader = ref("Article Header");
-const articleContent = ref("Lorem ipsum dolor sit amet, consectetur adipiscing elit , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-const articleCategory = ref("3");
+import { useRoute } from 'vue-router';
 
-// const createVisible = ref(true)
-// function create()
-// {
-//     createVisible.value = !createVisible.value
-//     console.log(createVisible.value)
-// }
 
-function  submitPost() {
-  axios.post('http://127.0.0.1:8000/api/create/',{
+const route = useRoute();
+const articleId = parseInt(route.params.id);
+
+const articleHeader = ref("");
+const articleContent = ref("");
+const articleCategory = ref("");
+
+function  editPost() {
+  axios.put(`http://127.0.0.1:8000/api/update/${articleId}`,{
     article_header: articleHeader.value,
     article: articleContent.value,
     article_categorie: articleCategory.value,
   });
 };
-
-
 
 </script>
 
@@ -29,9 +26,9 @@ function  submitPost() {
 
 <template>
     <main>
-        <h1>Create Post</h1>
+        <h1>Edit Article</h1>
         <div class="createFormContainer">
-            <form method="post" class="createForm" >
+            <form class="createForm" >
                 <label for="articleHeaderInput"></label>
                 <input type="text" id="articleHeaderInput" v-model="articleHeader" placeholder="Article Header" required :articleHeader="articleHeader">
                 <Editor id="editor" api-key="aa17q26lds0pcwb2mx5piir1xy1jfj51h2nn4mnvdcn82g4v" v-model="articleContent" :articleContent="articleContent"> </Editor>
@@ -44,7 +41,7 @@ function  submitPost() {
                     <option value="6">Categorie 5</option>
                 </select>
             </form>
-            <button class="createButton" @click="submitPost"> SUBMIT </button>
+            <button class="createButton" @click="editPost"> SUBMIT </button>
 
         </div>
     </main>

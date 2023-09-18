@@ -1,21 +1,35 @@
 <script setup>
 import {ref} from 'vue'
+import { useRoute } from 'vue-router';
+import axios from 'axios'
 
 const logedIn = ref(true)
 const createVisible = ref(true)
+const route = useRoute();
+const articleId = parseInt(route.params.id);
+
+function deleteArticle() { 
+  axios.delete(`http://127.0.0.1:8000/api/delete/${articleId}`)
+};
+
+
 function create()
 {
     createVisible.value = !createVisible.value
     console.log(createVisible.value)
 }
+
 </script>
 
 <template>
     <main>
         <div class="create" v-if="logedIn">
-              <button class="createButton" @click="create"> Create Article </button>
-              <button class="createButton" @click="create"> Edit Article </button>
-              <button class="createButton" @click="create"> Delete Article </button>
+          <RouterLink to="../create/">
+            <button class="createButton" @click="create" > Create Article </button>
+          </RouterLink>
+              
+              <button class="createButton" @click="create" :createVisible="createVisible"> Edit Article </button>
+              <button class="createButton" @click="deleteArticle" :createVisible="createVisible"> Delete Article </button>
         </div>
     </main>
 </template>

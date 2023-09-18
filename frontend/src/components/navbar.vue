@@ -1,7 +1,7 @@
 <script setup>
     import {RouterLink} from 'vue-router'
     import {ref} from 'vue'
-    import settings from '../components/settings.vue'
+   
    
  
 </script>
@@ -17,7 +17,7 @@
                     <li><RouterLink active-class="active" to='/create'>Create post</RouterLink></li>
                 </div>
                 <div class="user_navigation">
-                    <li><RouterLink active-class="active" to='/signup'>Sign Up</RouterLink></li>
+                    <li><RouterLink active-class="active" to='/signup'>Register</RouterLink></li>
                     <li><RouterLink active-class="active" to='/login'>Login</RouterLink></li>
                     <li><RouterLink active-class="active" to='/logout'>Logout</RouterLink></li>
                 </div>
@@ -25,7 +25,7 @@
         </nav>
     </header>
       
-      <settings/>
+   
 </template>
 
 <style scoped>
