@@ -1,13 +1,20 @@
 from blogapp.models import Article
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.utils.html import strip_tags
 
 
 class ArticleSerializer(serializers.ModelSerializer):
+	content_plain_text = serializers.CharField(source='content', read_only=True)
 	class Meta:
 		model = Article
 		fields = '__all__'
+		# fields= ['article_header', 'article', 'article_categorie']
 
+	def to_representation(self, instance):
+		representation = super(ArticleSerializer, self).to_representation(instance)
+		representation['article'] = strip_tags(representation['article'])
+		return representation
 
 # Serializer to Get User Details using Django Token Authentication
 class UserSerializer(serializers.ModelSerializer):

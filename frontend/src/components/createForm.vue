@@ -6,13 +6,6 @@ const articleHeader = ref("");
 const articleContent = ref("");
 const articleCategory = ref("");
 
-// const createVisible = ref(true)
-// function create()
-// {
-//     createVisible.value = !createVisible.value
-//     console.log(createVisible.value)
-// }
-
 function  submitPost() {
   axios.post('http://127.0.0.1:8000/api/create/',{
     article_header: articleHeader.value,
@@ -44,7 +37,7 @@ function  submitPost() {
                     <option value="6">Categorie 5</option>
                 </select>
             </form>
-            <button class="createButton" @click="submitPost"> SUBMIT </button>
+            <RouterLink to="/articles" class="createButton" @click="submitPost"> SUBMIT </RouterLink>
 
         </div>
     </main>

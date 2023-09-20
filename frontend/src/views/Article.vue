@@ -50,7 +50,7 @@ onMounted(async () => {
     
     <main>
         <settings/>
-        <editForm v-if="createVisible"/>
+
         <div v-if="article">
             <h1>{{ article.article_header }}</h1>
         <div class="text">

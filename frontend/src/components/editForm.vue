@@ -9,6 +9,13 @@ const articleId = parseInt(route.params.id);
 const article = ref([]); 
 const articles = ref([]);
 
+
+let articleHeader = ref("");
+let articleContent = ref("");
+let articleCategory = ref("");
+
+
+
 const getPosts = async () => {
     try {
         const response = await axios({
@@ -34,19 +41,17 @@ onMounted(async () => {
         articles.value = fetchedArticles; 
 
         article.value = findArticleById(articleId);
+        console.log(article.value)
+       articleHeader.value = `${article.value.article_header}`;
+       console.log(articleHeader)
+       articleContent.value = `${article.value.article}`;
+       articleCategory.value = `${article.value.article_categorie}`;
+      
 
     } catch (error) {
         console.error('Error in onMounted:', error);
     }
 });
-
-
-
-const articleHeader = ref(`${article.article_header}`);
-const articleContent = ref("");
-const articleCategory = ref("");
-
-
 
 function  editPost() {
   axios.put(`http://127.0.0.1:8000/api/update/${articleId}`,{
@@ -77,8 +82,7 @@ function  editPost() {
                     <option value="6">Categorie 5</option>
                 </select>
             </form>
-            <button class="createButton" @click="editPost"> SUBMIT </button>
-
+            <a :href="`/article/${article.id}`" class="createButton"  @click="editPost">SUBMIT</a>
         </div>
     </main>
 </template>

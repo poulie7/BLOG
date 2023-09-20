@@ -1,10 +1,14 @@
 <script setup>
-import Card from '../components/Card.vue'
+import Card from '../components/categorieCard.vue'
 import {ref, onMounted} from 'vue'
 import axios from 'axios';
 import categoriesComponent from '../components/categoriesView.vue'
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
+const articleId = parseInt(route.params.id);
 const articles = ref([]);
+const categorie = ref([]);
 
 const getPosts = async () => {
     try {
@@ -19,11 +23,15 @@ const getPosts = async () => {
     }
 };
 
+const findArticleByCategorie = (categorie) => {
+    return articles.value.filter(article => article.article_categorie === categorie);
+};
 
 onMounted(async () => {
     try {
         const fetchedArticles = await getPosts();
         articles.value = fetchedArticles; // Assign the fetched articles to the ref
+        categorie.value = findArticleByCategorie(articleId);
     } 
     catch (error) {
         console.error('Error in onMounted:', error);
@@ -33,14 +41,16 @@ onMounted(async () => {
 </script>
 
 <template>
-        <categoriesComponent/>
-
-    <div class="card-container" id="cards-container"> 
-      <Card v-for="article in articles" :key="article.id" :article="article"/>
-    </div>
+    <main>
+        <categoriesComponent :change="findArticleByCategorie"/>
+        <div class="card-container">
+            <Card v-for="c in categorie" :key="c.id" :c="c"/>
+        </div>
+    </main>
 </template>
 
 <style scoped>
+
 .card-container{
   display: flex;
   justify-content: space-evenly;
@@ -55,25 +65,5 @@ onMounted(async () => {
   }
 }
 
-/* categories componenet css */
 
-.categories { 
-    display: flex;
-    justify-content: space-evenly;
-    text-align: center;
-}
-.categories button { 
-    color: black;
-    margin: 2em;
-    border: 1px solid black;
-    border-radius: 30px;
-    padding: 0.2em;
-
-}
-
-
-.categories button:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
-}
 </style>

@@ -73,7 +73,7 @@ class CreateArticle(generics.CreateAPIView):
 	queryset = Article.objects.all()
 	serializer_class = ArticleSerializer
 	authentication_classes = [authentication.SessionAuthentication, ]
-	permission_classes = [permissions.IsAuthenticated,]
+	# permission_classes = [permissions.IsAuthenticated,]
 
 
 # Read

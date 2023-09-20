@@ -7,6 +7,9 @@ import LogoutView from '../views/LogoutView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import HomeView from '../views/HomeView.vue'
 import CreateView from '../views/CreateView.vue'
+import CategorieView from '../views/CategorieView.vue'
+import ArticleCreated from '../views/ArticleCreated.vue'
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -35,6 +38,11 @@ const router = createRouter({
             name: 'article',
             component: ArticleView
         },
+        {
+            path: '/categorie/:id',
+            name: 'categorie',
+            component: CategorieView
+        },
         { 
             path: '/login',
             name: 'login',
@@ -49,6 +57,11 @@ const router = createRouter({
             path: '/signup',
             name: 'signup',
             component: SignUpView
+        },
+        {
+            path: '/articlecreated',
+            name: 'articlecreated',
+            component: ArticleCreated
         },
         
     ]

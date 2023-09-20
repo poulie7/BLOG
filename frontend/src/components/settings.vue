@@ -29,7 +29,7 @@ function create()
           </RouterLink>
               
               <button class="createButton" @click="create" :createVisible="createVisible"> Edit Article </button>
-              <button class="createButton" @click="deleteArticle" :createVisible="createVisible"> Delete Article </button>
+              <a :href="`/article/${articleId}`" class="createButton" @click="deleteArticle" :createVisible="createVisible"> Delete Article </a>
         </div>
     </main>
 </template>
