@@ -1,9 +1,13 @@
 <script setup>
     import {RouterLink} from 'vue-router'
     import {ref} from 'vue'
-   
-   
- 
+    import axios from 'axios'
+
+function logout() { 
+    axios.post('http://127.0.0.1:8000/api/logout/', { 
+    })
+}
+
 </script>
 
 <template>   
@@ -19,7 +23,7 @@
                 <div class="user_navigation">
                     <li><RouterLink active-class="active" to='/signup'>Register</RouterLink></li>
                     <li><RouterLink active-class="active" to='/login'>Login</RouterLink></li>
-                    <li><RouterLink active-class="active" to='/logout'>Logout</RouterLink></li>
+                    <li><RouterLink active-class="active" to='/logout' @click="logout">Logout</RouterLink></li>
                 </div>
             </ul>
         </nav>

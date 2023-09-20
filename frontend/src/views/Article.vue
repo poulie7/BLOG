@@ -7,10 +7,11 @@ import settings from '../components/settings.vue'
 import editForm from '../components/editform.vue'
 import {defineProps} from 'vue'
 
-const article = ref([]); // Initialize as null since we're looking for a single article
+const article = ref([]); 
 const articles = ref([]);
 const route = useRoute();
 const articleId = parseInt(route.params.id);
+const {createVisible} = defineProps(['createVisible'])
 
 
 const getPosts = async () => {
@@ -37,7 +38,6 @@ onMounted(async () => {
         const fetchedArticles = await getPosts();
         articles.value = fetchedArticles; 
 
-        // Find the article with the matching ID
         article.value = findArticleById(articleId);
 
     } catch (error) {
@@ -50,6 +50,7 @@ onMounted(async () => {
     
     <main>
         <settings/>
+        <editForm v-if="createVisible"/>
         <div v-if="article">
             <h1>{{ article.article_header }}</h1>
         <div class="text">

@@ -4,13 +4,49 @@ import {ref, onMounted} from 'vue'
 import Editor from '@tinymce/tinymce-vue'
 import { useRoute } from 'vue-router';
 
-
 const route = useRoute();
 const articleId = parseInt(route.params.id);
+const article = ref([]); 
+const articles = ref([]);
 
-const articleHeader = ref("");
+const getPosts = async () => {
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: 'http://127.0.0.1:8000/api',
+        });
+        return response.data; 
+    } catch (error) {
+        console.error('Error fetching articles:', error);
+        return [];
+    }
+};
+
+
+const findArticleById = (id) => {
+    return articles.value.find(article => article.id === id);
+};
+
+
+onMounted(async () => {
+    try {
+        const fetchedArticles = await getPosts();
+        articles.value = fetchedArticles; 
+
+        article.value = findArticleById(articleId);
+
+    } catch (error) {
+        console.error('Error in onMounted:', error);
+    }
+});
+
+
+
+const articleHeader = ref(`${article.article_header}`);
 const articleContent = ref("");
 const articleCategory = ref("");
+
+
 
 function  editPost() {
   axios.put(`http://127.0.0.1:8000/api/update/${articleId}`,{

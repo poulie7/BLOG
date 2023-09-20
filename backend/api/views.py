@@ -2,12 +2,15 @@ from blogapp.models import Article
 from .serializer import ArticleSerializer, UserSerializer, LoginSerializer
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from rest_framework.authentication import SessionAuthentication, BaseAuthentication
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework import generics, authentication, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from rest_framework import status
+from django.shortcuts import get_object_or_404
+from rest_framework.authtoken.models import Token
+from django.contrib.sessions.models import Session
 
 
 # Authentication Views
@@ -28,19 +31,30 @@ class RegisterUser(APIView):
 
 class LoginUser(APIView):
 	def post(self, request):
-		username = request.POST['username']
-		password = request.POST['password']
-		user = authenticate(request, username=username, password=password)
-		if user is not None:
-			login(request, user)
+		if request.user.is_authenticated:
+			return Response({'message': 'You are already logged in.'}, status=status.HTTP_200_OK)
 
+		if request.method == 'POST':
+			username = request.data.get('username')
+			password = request.data.get('password')
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				login(request, user)
+				request.session.set_expiry(0)
+				request.session.save()
+				return Response({'message': 'Login successful.'}, status=status.HTTP_200_OK)
+			else:
+				return Response({'message': 'Login failed. Please check your credentials.'},
+								status=status.HTTP_401_UNAUTHORIZED)
 
 
 # Logout
 class LogoutUser(APIView):
+	authentication_classes = [SessionAuthentication,]
+
 	def post(self, request):
-		response = Response()
-		response.delete_cookie('jwt')
+		logout(request)
+		return Response({'message': 'Logout successful.'}, status=status.HTTP_200_OK)
 
 
 # class UserView(generics.RetrieveAPIView):
@@ -58,7 +72,8 @@ class LogoutUser(APIView):
 class CreateArticle(generics.CreateAPIView):
 	queryset = Article.objects.all()
 	serializer_class = ArticleSerializer
-# permission_classes = [IsAuthenticated]
+	authentication_classes = [authentication.SessionAuthentication, ]
+	permission_classes = [permissions.IsAuthenticated,]
 
 
 # Read
