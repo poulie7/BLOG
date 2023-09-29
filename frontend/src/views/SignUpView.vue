@@ -4,6 +4,7 @@ import {ref, onMounted} from 'vue'
 
 const firstName = ref("");
 const lastName = ref("");
+const email = ref("");
 const username = ref("");
 const password = ref("");
 
@@ -12,12 +13,12 @@ function register() {
     axios.post('http://127.0.0.1:8000/api/register/', { 
         first_name: firstName.value,
         last_name: lastName.value,
+        email: email.value,
         username: username.value,
         password: password.value,
   
     })
 }
-
 </script>
 
 <template>
@@ -34,6 +35,10 @@ function register() {
                 <input type="text" id="last-name" name="last-name" v-model="lastName" required>
             </div>
             <div class="form-group">
+                <label for="email">email:</label>
+                <input type="text" id="email" name="email" v-model="email" required>
+            </div>
+            <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" v-model="username" required>
             </div>
@@ -44,7 +49,7 @@ function register() {
           
         </form>
         <div class="form-group">
-                <button type="submit" @click="register">Sign Up</button>
+                <button type="submit" @click="register">Register</button>
             </div>
     </div>
         

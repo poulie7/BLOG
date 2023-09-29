@@ -3,9 +3,20 @@
     import {ref} from 'vue'
     import axios from 'axios'
 
-function logout() { 
-    axios.post('http://127.0.0.1:8000/api/logout/', { 
-    })
+    function logout() {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        axios.post('http://127.0.0.1:8000/api/logout/',null, {
+            headers: {
+                Authorization: `Token ${token}`,
+            },
+        })
+        .then(response => {
+            localStorage.removeItem('authToken');
+        })
+    } else {
+        console.log('User is not logged in.');
+    }
 }
 
 </script>

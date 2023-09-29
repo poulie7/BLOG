@@ -3,16 +3,23 @@ import axios from 'axios'
 import {ref, onMounted} from 'vue'
 
 
+
 const username = ref("");
 const password = ref("");
 
 
-function login() { 
-    axios.post('http://127.0.0.1:8000/api/login/', { 
+
+function login() {
+    axios.post('http://127.0.0.1:8000/api/login/', {
         username: username.value,
         password: password.value,
-  
     })
+    .then(response => {
+        const token = response.data.token;
+        localStorage.setItem('authToken', token);
+    })
+    .catch(error => {
+    });
 }
 </script>
 
