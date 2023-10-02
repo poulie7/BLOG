@@ -31,7 +31,8 @@ const router = createRouter({
         {
             path: '/create',
             name: 'create',
-            component: CreateView
+            component: CreateView,
+            meta: { requiresAuth: true },
         },
         {
             path: '/article/:id',
@@ -66,5 +67,22 @@ const router = createRouter({
         
     ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const token = localStorage.getItem('authToken');
+    const isAuthenticated = !!token; // Check if token exists and is truthy
+
+    if (!isAuthenticated) {
+      next('/login');
+    } else {
+      next(); 
+    }
+  } else {
+    next(); 
+  }
+});
+
 
 export default router

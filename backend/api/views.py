@@ -98,6 +98,7 @@ class CreateArticle(generics.CreateAPIView):
 	serializer_class = ArticleSerializer
 
 
+
 # Read
 class ArticleView(generics.ListAPIView):
 	queryset = Article.objects.all()

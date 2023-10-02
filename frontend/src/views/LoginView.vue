@@ -2,6 +2,7 @@
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
 
+import  router  from '../router/index.js'; // Import your router instance
 
 
 const username = ref("");
@@ -17,9 +18,9 @@ function login() {
     .then(response => {
         const token = response.data.token;
         localStorage.setItem('authToken', token);
+        router.push('/create');
+
     })
-    .catch(error => {
-    });
 }
 </script>
 
@@ -40,7 +41,7 @@ function login() {
         
         </form>
              <div class="form-group">
-                <button type="submit" @click="login">Login</button>
+                <button href="/create" type="submit" @click="login">Login</button>
             </div>
     </div>
         
